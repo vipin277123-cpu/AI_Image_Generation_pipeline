@@ -220,7 +220,9 @@ def render_text_to_image_tab():
 
             try:
                 def on_progress(step: int, total: int):
-                    progress_bar.progress(int((step / total) * 100), text=f"Denoising step {step}/{total}...")
+                    if total > 0:
+                        safe_percent = max(0, min(100, int((step / total) * 100)))
+                        progress_bar.progress(safe_percent, text=f"Denoising step {min(step, total)}/{total}...")
 
                 with st.spinner("Generating image..."):
                     img, path, meta = generate_text_to_image(
@@ -341,8 +343,9 @@ def render_style_transfer_tab():
 
             try:
                 def on_style_progress(step: int, total: int, loss: float):
-                    percent = int((step / total) * 100)
-                    prog_bar.progress(percent, text=f"Optimizing style: step {step}/{total} (loss: {loss:.2f})")
+                    if total > 0:
+                        percent = max(0, min(100, int((step / total) * 100)))
+                        prog_bar.progress(percent, text=f"Optimizing style: step {min(step, total)}/{total} (loss: {loss:.2f})")
 
                 with st.spinner("Stylizing image with VGG19..."):
                     stylized = run_style_transfer(
@@ -459,7 +462,9 @@ def render_variations_tab():
 
             try:
                 def on_var_progress(current: int, total: int):
-                    prog_var.progress(int((current / total) * 100), text=f"Finished variation {current} of {total}...")
+                    if total > 0:
+                        safe_percent = max(0, min(100, int((current / total) * 100)))
+                        prog_var.progress(safe_percent, text=f"Finished variation {min(current, total)} of {total}...")
 
                 with st.spinner("Synthesizing 4 variations..."):
                     results = generate_image_variations(

@@ -80,21 +80,24 @@ def load_text_to_image_pipeline(
             pipe = DiffusionPipeline.from_pretrained(model_id, **pipeline_kwargs)
 
         if device.type == "cuda":
-            pipe = pipe.to(device)
-            # Memory optimizations for consumer GPUs (e.g. RTX 2050 4GB)
+            hw = detect_hardware()
+            offloaded = False
+            # For 4GB or lower VRAM, enable model CPU offload if available
+            if hw.vram_total_mb > 0 and hw.vram_total_mb <= 4500:
+                logger.info("Enabling model CPU offload for consumer GPU with <= 4GB VRAM...")
+                try:
+                    pipe.enable_model_cpu_offload()
+                    offloaded = True
+                except Exception as offload_err:
+                    logger.debug(f"enable_model_cpu_offload notice: {offload_err}")
+
+            if not offloaded:
+                pipe = pipe.to(device)
+
             if hasattr(pipe, "enable_attention_slicing"):
                 pipe.enable_attention_slicing()
             if hasattr(pipe, "enable_vae_slicing"):
                 pipe.enable_vae_slicing()
-
-            # For 4GB or lower VRAM, enable sequential or model CPU offload if available
-            hw = detect_hardware()
-            if hw.vram_total_mb > 0 and hw.vram_total_mb <= 4500:
-                logger.info("Enabling model CPU offload for 4GB VRAM GPU...")
-                try:
-                    pipe.enable_model_cpu_offload()
-                except Exception as offload_err:
-                    logger.debug(f"enable_model_cpu_offload notice: {offload_err}")
         else:
             pipe = pipe.to(device)
 
@@ -169,6 +172,28 @@ def generate_text_to_image(
     """
     clean_prompt = validate_prompt(prompt)
 
+    # 1. Parameter validations
+    if not isinstance(num_inference_steps, int) or num_inference_steps < 1 or num_inference_steps > 150:
+        logger.warning(f"Inference steps {num_inference_steps} out of bounds [1, 150]. Normalizing to 25.")
+        num_inference_steps = max(1, min(100, int(num_inference_steps) if isinstance(num_inference_steps, (int, float)) else 25))
+
+    if not isinstance(guidance_scale, (int, float)) or guidance_scale < 0.0 or guidance_scale > 30.0:
+        logger.warning(f"Guidance scale {guidance_scale} out of bounds [0, 30]. Normalizing to 7.5.")
+        guidance_scale = max(0.0, min(30.0, float(guidance_scale) if isinstance(guidance_scale, (int, float)) else 7.5))
+
+    # Enforce standard 512x512 resolution
+    width = 512
+    height = 512
+
+    # Manage random seed
+    if seed is None or seed < 0:
+        seed = random.randint(0, 2**32 - 1)
+    else:
+        try:
+            seed = int(seed)
+        except (ValueError, TypeError):
+            seed = random.randint(0, 2**32 - 1)
+
     # Apply style preset prompt conditioning
     conditioned_prompt, conditioned_negative = apply_style_preset(
         base_prompt=clean_prompt,
@@ -178,10 +203,6 @@ def generate_text_to_image(
 
     if device is None:
         device = get_torch_device(config.device_mode)
-
-    # Manage random seed
-    if seed is None or seed < 0:
-        seed = random.randint(0, 2**32 - 1)
 
     # Check for API Fallback mode if configured
     if config.hf_api_fallback and config.hf_token:
@@ -211,11 +232,22 @@ def generate_text_to_image(
                 raise
 
         # Setup generator for reproducibility
-        generator = torch.Generator(device=device if device.type == "cpu" else "cuda").manual_seed(seed)
+        # If model is CPU-offloaded or on CPU, generator on CPU avoids device mismatch
+        try:
+            generator = torch.Generator(device=device if device.type == "cuda" else "cpu").manual_seed(seed)
+        except Exception:
+            generator = torch.Generator(device="cpu").manual_seed(seed)
 
         def step_callback(step: int, timestep: int, latents: Any):
             if progress_callback:
-                progress_callback(step + 1, num_inference_steps)
+                # Diffusers step index can vary by scheduler order (e.g. PNDM)
+                # Clamp reported step strictly to [1, num_inference_steps]
+                reported_step = max(1, min(num_inference_steps, step + 1))
+                try:
+                    progress_callback(reported_step, num_inference_steps)
+                except Exception as cb_err:
+                    # Progress reporting error must never crash image inference
+                    logger.debug(f"Progress callback notification skipped: {cb_err}")
 
         inference_kwargs: Dict[str, Any] = {
             "prompt": conditioned_prompt,

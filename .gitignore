@@ -55,3 +55,7 @@ checkpoints/
 *.tmp
 *.log
 
+# Agent & Assistant IDE artifacts
+.agents/
+.claude/
+

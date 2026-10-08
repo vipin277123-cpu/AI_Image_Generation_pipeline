@@ -1,0 +1,17 @@
+{
+  "id": "f3d165",
+  "filename": "txt2img_20261009_012730_f3d165.png",
+  "timestamp": "2026-10-09T01:27:30.869237",
+  "width": 512,
+  "height": 512,
+  "prefix": "txt2img",
+  "prompt": "A futuristic cyberpunk city at night with flying cars, neon billboards, cinematic rain reflections",
+  "conditioned_prompt": "A futuristic cyberpunk city at night with flying cars, neon billboards, cinematic rain reflections, cyberpunk theme, neon glow, holographic city night, chrome reflections, futuristic dystopia, cinematic rain wet asphalt",
+  "negative_prompt": "blurry, distorted, ugly, low quality, artifacts",
+  "style_preset": "Cyberpunk",
+  "num_inference_steps": 25,
+  "guidance_scale": 7.5,
+  "seed": 528091285,
+  "device": "cuda",
+  "model_id": "runwayml/stable-diffusion-v1-5"
+}
