@@ -75,6 +75,8 @@ class TestPipelineComponents(unittest.TestCase):
     @patch("app.text_to_image.load_text_to_image_pipeline")
     def test_text_to_image_mock_generation(self, mock_load):
         """Test text-to-image orchestration with mock pipeline."""
+        import tempfile
+        from pathlib import Path
         from app.text_to_image import generate_text_to_image
 
         mock_pipe = MagicMock()
@@ -84,23 +86,27 @@ class TestPipelineComponents(unittest.TestCase):
         mock_pipe.return_value = mock_output
         mock_load.return_value = mock_pipe
 
-        img, path, meta = generate_text_to_image(
-            prompt="A serene forest at dawn",
-            num_inference_steps=5,
-            guidance_scale=7.0,
-            seed=123,
-            device=torch.device("cpu"),
-        )
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            with patch("app.text_to_image.TEXT_TO_IMAGE_DIR", Path(tmp_dir)):
+                img, path, meta = generate_text_to_image(
+                    prompt="A serene forest at dawn",
+                    num_inference_steps=5,
+                    guidance_scale=7.0,
+                    seed=123,
+                    device=torch.device("cpu"),
+                )
 
-        self.assertIsInstance(img, Image.Image)
-        self.assertEqual(img.size, (512, 512))
-        self.assertEqual(meta["seed"], 123)
-        self.assertEqual(meta["num_inference_steps"], 5)
-        self.assertTrue(path.exists())
+                self.assertIsInstance(img, Image.Image)
+                self.assertEqual(img.size, (512, 512))
+                self.assertEqual(meta["seed"], 123)
+                self.assertEqual(meta["num_inference_steps"], 5)
+                self.assertTrue(path.exists())
 
     @patch("app.variations.load_img2img_pipeline")
     def test_variations_mock_generation(self, mock_load_img):
         """Test that variations generate exactly 4 variations with unique seeds."""
+        import tempfile
+        from pathlib import Path
         from app.variations import generate_image_variations
 
         mock_pipe = MagicMock()
@@ -109,22 +115,24 @@ class TestPipelineComponents(unittest.TestCase):
         mock_load_img.return_value = mock_pipe
 
         input_img = Image.new("RGB", (256, 256), color=(20, 20, 20))
-        results = generate_image_variations(
-            input_image=input_img,
-            num_variations=4,
-            strength=0.7,
-            num_inference_steps=5,
-            base_seed=42,
-            device=torch.device("cpu"),
-        )
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            with patch("app.variations.VARIATIONS_DIR", Path(tmp_dir)):
+                results = generate_image_variations(
+                    input_image=input_img,
+                    num_variations=4,
+                    strength=0.7,
+                    num_inference_steps=5,
+                    base_seed=42,
+                    device=torch.device("cpu"),
+                )
 
-        self.assertEqual(len(results), 4)
-        seeds = [meta["seed"] for _, _, meta in results]
-        # Verify 4 distinct seeds
-        self.assertEqual(len(set(seeds)), 4)
-        for _, path, meta in results:
-            self.assertTrue(path.exists())
-            self.assertEqual(meta["strength"], 0.7)
+                self.assertEqual(len(results), 4)
+                seeds = [meta["seed"] for _, _, meta in results]
+                # Verify 4 distinct seeds
+                self.assertEqual(len(set(seeds)), 4)
+                for _, path, meta in results:
+                    self.assertTrue(path.exists())
+                    self.assertEqual(meta["strength"], 0.7)
 
 
 if __name__ == "__main__":
