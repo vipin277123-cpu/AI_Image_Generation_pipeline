@@ -1,0 +1,12 @@
+{
+  "id": "b798fc",
+  "filename": "style_transfer_starry_city_20261009_003101_b798fc.png",
+  "timestamp": "2026-10-09T00:31:01.471928",
+  "width": 384,
+  "height": 384,
+  "prefix": "style_transfer_starry_city",
+  "content": "city_skyline",
+  "style": "starry_night",
+  "iterations": 60,
+  "style_weight": 100000.0
+}

@@ -1,0 +1,17 @@
+{
+  "id": "17a0ae",
+  "filename": "txt2img_20261009_004856_17a0ae.png",
+  "timestamp": "2026-10-09T00:48:56.624592",
+  "width": 512,
+  "height": 512,
+  "prefix": "txt2img",
+  "prompt": "A serene forest at dawn",
+  "conditioned_prompt": "A serene forest at dawn",
+  "negative_prompt": "",
+  "style_preset": "None",
+  "num_inference_steps": 5,
+  "guidance_scale": 7.0,
+  "seed": 123,
+  "device": "cpu",
+  "model_id": "stabilityai/sd-turbo"
+}

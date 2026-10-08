@@ -1,0 +1,17 @@
+{
+  "id": "80ee30",
+  "filename": "txt2img_20261009_003939_80ee30.png",
+  "timestamp": "2026-10-09T00:39:39.855107",
+  "width": 512,
+  "height": 512,
+  "prefix": "txt2img",
+  "prompt": "A serene Japanese zen garden with cherry blossoms beside a koi pond",
+  "conditioned_prompt": "A serene Japanese zen garden with cherry blossoms beside a koi pond, delicate watercolor painting, soft pigment washes, paper texture, expressive brush strokes, flowing ink contours",
+  "negative_prompt": "",
+  "style_preset": "Watercolor",
+  "num_inference_steps": 4,
+  "guidance_scale": 0.0,
+  "seed": 999,
+  "device": "cuda",
+  "model_id": "stabilityai/sd-turbo"
+}

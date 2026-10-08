@@ -1,0 +1,17 @@
+{
+  "id": "e1df76",
+  "filename": "txt2img_20261009_003932_e1df76.png",
+  "timestamp": "2026-10-09T00:39:32.844774",
+  "width": 512,
+  "height": 512,
+  "prefix": "txt2img",
+  "prompt": "A cozy fantasy cottage nestled in an enchanted glowing forest with fireflies",
+  "conditioned_prompt": "A cozy fantasy cottage nestled in an enchanted glowing forest with fireflies, high fantasy, epic atmospheric lighting, magical glow, mythical aura, intricate fantasy illustration, masterpiece",
+  "negative_prompt": "",
+  "style_preset": "Fantasy",
+  "num_inference_steps": 4,
+  "guidance_scale": 0.0,
+  "seed": 101,
+  "device": "cuda",
+  "model_id": "stabilityai/sd-turbo"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "8ea42c",
+  "filename": "variation_3_20261009_004856_8ea42c.png",
+  "timestamp": "2026-10-09T00:48:56.777817",
+  "width": 512,
+  "height": 512,
+  "prefix": "variation_3",
+  "variation_index": 3,
+  "total_variations": 4,
+  "seed": 2716,
+  "base_seed": 42,
+  "strength": 0.7,
+  "num_inference_steps": 5,
+  "guidance_scale": 7.5,
+  "prompt": "high quality masterpiece variation, intricate details",
+  "model_id": "stabilityai/sd-turbo"
+}

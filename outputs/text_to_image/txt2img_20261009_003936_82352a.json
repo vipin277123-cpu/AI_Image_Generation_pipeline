@@ -1,0 +1,17 @@
+{
+  "id": "82352a",
+  "filename": "txt2img_20261009_003936_82352a.png",
+  "timestamp": "2026-10-09T00:39:36.339404",
+  "width": 512,
+  "height": 512,
+  "prefix": "txt2img",
+  "prompt": "A majestic portrait of an astronaut exploring a vibrant alien crystal planet",
+  "conditioned_prompt": "A majestic portrait of an astronaut exploring a vibrant alien crystal planet, cinematic still, 35mm photograph, dramatic film lighting, blockbuster movie aesthetic, shallow depth of field, anamorphic",
+  "negative_prompt": "",
+  "style_preset": "Cinematic",
+  "num_inference_steps": 4,
+  "guidance_scale": 0.0,
+  "seed": 777,
+  "device": "cuda",
+  "model_id": "stabilityai/sd-turbo"
+}

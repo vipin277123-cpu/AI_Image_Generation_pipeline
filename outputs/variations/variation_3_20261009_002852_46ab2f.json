@@ -1,0 +1,17 @@
+{
+  "id": "46ab2f",
+  "filename": "variation_3_20261009_002852_46ab2f.png",
+  "timestamp": "2026-10-09T00:28:52.970898",
+  "width": 512,
+  "height": 512,
+  "prefix": "variation_3",
+  "variation_index": 3,
+  "total_variations": 4,
+  "seed": 2716,
+  "base_seed": 42,
+  "strength": 0.7,
+  "num_inference_steps": 5,
+  "guidance_scale": 7.5,
+  "prompt": "high quality masterpiece variation, intricate details",
+  "model_id": "runwayml/stable-diffusion-v1-5"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "7352dc",
+  "filename": "style_transfer_cubist_bridge_20261009_003137_7352dc.png",
+  "timestamp": "2026-10-09T00:31:37.321519",
+  "width": 384,
+  "height": 384,
+  "prefix": "style_transfer_cubist_bridge",
+  "content": "bridge_landscape",
+  "style": "geometric_cubism",
+  "iterations": 60,
+  "style_weight": 100000.0
+}

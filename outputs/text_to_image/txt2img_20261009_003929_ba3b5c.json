@@ -1,0 +1,17 @@
+{
+  "id": "ba3b5c",
+  "filename": "txt2img_20261009_003929_ba3b5c.png",
+  "timestamp": "2026-10-09T00:39:29.171155",
+  "width": 512,
+  "height": 512,
+  "prefix": "txt2img",
+  "prompt": "A futuristic cyberpunk city at night with flying cars and neon holograms",
+  "conditioned_prompt": "A futuristic cyberpunk city at night with flying cars and neon holograms, cyberpunk theme, neon glow, holographic city night, chrome reflections, futuristic dystopia, cinematic rain wet asphalt",
+  "negative_prompt": "",
+  "style_preset": "Cyberpunk",
+  "num_inference_steps": 4,
+  "guidance_scale": 0.0,
+  "seed": 42,
+  "device": "cuda",
+  "model_id": "stabilityai/sd-turbo"
+}

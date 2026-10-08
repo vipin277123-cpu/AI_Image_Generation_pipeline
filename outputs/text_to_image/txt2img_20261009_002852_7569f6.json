@@ -1,0 +1,17 @@
+{
+  "id": "7569f6",
+  "filename": "txt2img_20261009_002852_7569f6.png",
+  "timestamp": "2026-10-09T00:28:52.665588",
+  "width": 512,
+  "height": 512,
+  "prefix": "txt2img",
+  "prompt": "A serene forest at dawn",
+  "conditioned_prompt": "A serene forest at dawn",
+  "negative_prompt": "",
+  "style_preset": "None",
+  "num_inference_steps": 5,
+  "guidance_scale": 7.0,
+  "seed": 123,
+  "device": "cpu",
+  "model_id": "runwayml/stable-diffusion-v1-5"
+}

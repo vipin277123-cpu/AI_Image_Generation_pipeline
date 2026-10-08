@@ -1,0 +1,17 @@
+{
+  "id": "81f190",
+  "filename": "variation_2_20261009_002852_81f190.png",
+  "timestamp": "2026-10-09T00:28:52.962260",
+  "width": 512,
+  "height": 512,
+  "prefix": "variation_2",
+  "variation_index": 2,
+  "total_variations": 4,
+  "seed": 1379,
+  "base_seed": 42,
+  "strength": 0.7,
+  "num_inference_steps": 5,
+  "guidance_scale": 7.5,
+  "prompt": "high quality masterpiece variation, intricate details",
+  "model_id": "runwayml/stable-diffusion-v1-5"
+}

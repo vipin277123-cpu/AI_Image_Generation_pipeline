@@ -1,0 +1,17 @@
+{
+  "id": "8827d5",
+  "filename": "variation_4_20261009_002958_8827d5.png",
+  "timestamp": "2026-10-09T00:29:58.197085",
+  "width": 512,
+  "height": 512,
+  "prefix": "variation_4",
+  "variation_index": 4,
+  "total_variations": 4,
+  "seed": 4053,
+  "base_seed": 42,
+  "strength": 0.7,
+  "num_inference_steps": 5,
+  "guidance_scale": 7.5,
+  "prompt": "high quality masterpiece variation, intricate details",
+  "model_id": "runwayml/stable-diffusion-v1-5"
+}

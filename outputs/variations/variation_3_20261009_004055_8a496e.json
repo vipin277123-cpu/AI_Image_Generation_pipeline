@@ -1,0 +1,17 @@
+{
+  "id": "8a496e",
+  "filename": "variation_3_20261009_004055_8a496e.png",
+  "timestamp": "2026-10-09T00:40:55.919056",
+  "width": 512,
+  "height": 512,
+  "prefix": "variation_3",
+  "variation_index": 3,
+  "total_variations": 4,
+  "seed": 3674,
+  "base_seed": 1000,
+  "strength": 0.6,
+  "num_inference_steps": 4,
+  "guidance_scale": 0.0,
+  "prompt": "futuristic modern metropolis city skyline at sunset, neon illumination",
+  "model_id": "stabilityai/sd-turbo"
+}
