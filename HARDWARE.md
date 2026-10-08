@@ -72,3 +72,4 @@ Actual test timings recorded on this device:
 | **Text-to-Image (Cold load)** | `sd-turbo` (512x512) | 4 steps (CFG 0.0) | **14.8 s** (incl. weight mapping) |
 | **Image Variations (4x)** | `sd-turbo` Img2Img | 4 variations x 4 steps | **8.9 s total (~2.2 s / img)** |
 | **Memory Peak (VRAM)** | During 512x512 inference | Float16 + Sliced VAE | **~2.8 GB / 4.0 GB** |
+
